@@ -1,0 +1,15 @@
+{% extends 'online_enrollment/base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="container mt-4">
+    <h2>Remove Student</h2>
+    <p>Are you sure you want to remove <strong>{{ student.first_name }} {{ student.last_name }}</strong>?</p>
+
+    <form method="post">
+        {% csrf_token %}
+        <button type="submit" class="btn btn-danger">Yes, Delete</button>
+        <a href="{% url 'online_enrollment:students' %}" class="btn btn-secondary">Cancel</a>
+    </form>
+</div>
+{% endblock %}

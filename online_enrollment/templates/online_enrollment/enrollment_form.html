@@ -1,0 +1,36 @@
+{% extends 'online_enrollment/base.html' %}
+
+{% block content %}
+<h2>{{ title }}</h2>
+
+<form method="post">
+  {% csrf_token %}
+
+  <div class="mb-3">
+    <label for="id_student" class="form-label">Student</label>
+    <select name="student" id="id_student" class="form-control">
+      {% for student in students %}
+        <option value="{{ student.id }}" 
+          {% if form.instance.student and student.id == form.instance.student.id %}selected{% endif %}>
+          {{ student.first_name }} {{ student.last_name }}
+        </option>
+      {% endfor %}
+    </select>
+  </div>
+
+  <div class="mb-3">
+    <label for="id_course" class="form-label">Course</label>
+    <select name="course" id="id_course" class="form-control">
+      {% for course in courses %}
+        <option value="{{ course.id }}" 
+          {% if form.instance.course and course.id == form.instance.course.id %}selected{% endif %}>
+          {{ course.code }}
+        </option>
+      {% endfor %}
+    </select>
+  </div>
+
+  <button type="submit" class="btn btn-primary">Save</button>
+  <a href="{% url 'online_enrollment:enrollment_list' %}" class="btn btn-secondary">Cancel</a>
+</form>
+{% endblock %}

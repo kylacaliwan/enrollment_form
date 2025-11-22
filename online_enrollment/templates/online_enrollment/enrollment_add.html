@@ -1,0 +1,36 @@
+{% extends 'online_enrollment/base.html' %}
+{% load static %}
+{% load widget_tweaks %}
+
+
+{% block content %}
+<div class="container mt-4">
+    <div class="card shadow-sm">
+        <div class="card-header d-flex justify-content-between align-items-center">
+            <h3 class="mb-0">Add Enrollment</h3>
+            <a href="{% url 'online_enrollment:enrollment_list' %}" class="btn btn-secondary">Back</a>
+        </div>
+
+        <div class="card-body">
+            <form method="POST">
+                {% csrf_token %}
+                {{ form.non_field_errors }}
+                
+                <div class="mb-3">
+                    <label for="id_student" class="form-label">Student</label>
+                    {{ form.student|add_class:"form-select" }}
+                    {{ form.student.errors }}
+                </div>
+
+                <div class="mb-3">
+                    <label for="id_course" class="form-label">Course</label>
+                    {{ form.course }}
+                    {{ form.course.errors }}
+                </div>
+
+                <button type="submit" class="btn btn-primary">Enroll</button>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

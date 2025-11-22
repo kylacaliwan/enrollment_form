@@ -1,0 +1,18 @@
+{% extends 'online_enrollment/base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="container mt-4">
+    <h2>{{ title }}</h2>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <div style="color:red">
+        {{ form.errors }}
+        {{ form.non_field_errors }}
+    </div>
+        <button type="submit" class="btn btn-success">Save</button>
+        <a href="{% url 'online_enrollment:students' %}" class="btn btn-secondary">Cancel</a>
+    </form>
+</div>
+{% endblock %}

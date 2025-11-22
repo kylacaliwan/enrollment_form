@@ -1,0 +1,38 @@
+{% extends 'online_enrollment/base.html' %}
+
+{% block content %}
+<div class="container mt-4">
+    <div class="card shadow-sm p-4 mt-3" style="max-width: 600px; margin: auto; position: relative;">
+        
+        <!-- Back Button Top-Right -->
+        <div class="d-flex justify-content-end mb-3">
+            <a href="{% url 'online_enrollment:home' %}" class="btn btn-secondary btn-md">Back</a>
+        </div>
+
+        <!-- Profile Icon and Name -->
+        <div class="text-center mb-3">
+            <i class="bi bi-person-circle display-1 text-primary"></i>
+            <h3 class="mt-2">{{ request.user.first_name|default:request.user.username }}</h4>
+        </div>
+
+        <!-- Profile Details -->
+        <ul class="list-group list-group-flush">
+            {% comment %} <li class="list-group-item"><strong>Username:</strong> {{ request.user.username }}</li> {% endcomment %}
+            <li class="list-group-item"><strong>Email:</strong> {{ request.user.email }}</li>
+            <li class="list-group-item">
+                <strong>Contact Number:</strong> 
+                {% if profile %}{{ profile.contact_number|default:"Not set" }}{% else %}Not set{% endif %}
+            </li>
+            <li class="list-group-item">
+                <strong>Address:</strong> 
+                {% if profile %}{{ profile.address|default:"Not set" }}{% else %}Not set{% endif %}
+            </li>
+        </ul>
+
+        <!-- Edit Profile Button -->
+        <div class="text-center mt-3">
+            <a href="{% url 'online_enrollment:profile_edit' %}" class="btn btn-primary">Edit Profile</a>
+        </div>
+    </div>
+</div>
+{% endblock %}

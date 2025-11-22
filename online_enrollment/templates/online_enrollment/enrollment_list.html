@@ -1,0 +1,53 @@
+{% extends 'online_enrollment/base.html' %}
+{% load static %}
+
+
+{% block content %}
+<div class="container mt-4">
+    <div class="d-flex justify-content-between align-items-center mb-3">
+        <h2 class="mb-0">Enrollment List</h2>
+        <div>
+            <a href="{% url 'online_enrollment:home' %}" class="btn btn-secondary">Back</a>
+            <a href="{% url 'online_enrollment:enrollment_add' %}" class="btn btn-success">Add Enrollment</a>
+        </div>
+    </div>
+
+    <div class="card-body p-0">
+        <div class="table-responsive">
+            <table class="table table-hover table-bordered mb-0 align-middle">
+                <thead class="table-dark text-center">
+                    <tr>
+                        <th style="width: 120px;">Enrollment ID</th>
+                        <th>Student</th>
+                        <th>Subject</th>
+                        <th>Date Enrolled</th>
+                        <th style="width: 160px;">Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for enrollment in enrollments %}
+                    <tr>
+                        <td class="text-center">{{ enrollment.id }}</td>
+                        <td>{{ enrollment.student.first_name }} {{ enrollment.student.last_name }}</td>
+                        <td>{{ enrollment.course.code }}</td>
+                        <td class="text-center">{{ enrollment.date_enrolled }}</td>
+                        <td class="text-center">
+                            <a href="{% url 'online_enrollment:enrollment_edit' enrollment.id %}" 
+                               class="btn btn-sm btn-warning me-1">Edit</a>
+                            <a href="{% url 'online_enrollment:enrollment_delete' enrollment.id %}" 
+                               class="btn btn-sm btn-danger">Delete</a>
+                        </td>
+                    </tr>
+                    {% empty %}
+                    <tr>
+                        <td colspan="5" class="text-center py-4 fw-semibold text-muted">
+                            No enrollments found.
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{% endblock %}
