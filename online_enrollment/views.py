@@ -88,16 +88,19 @@ def course_add(request):
     return render(request, 'online_enrollment/course_form.html', {'form': form, 'title': 'Add New Subject'})
 
 @login_required
-def course_edit(request, pk):
-    course = get_object_or_404(Course, pk=pk)
-    if request.method == 'POST':
+def course_edit(request, id):
+    course = get_object_or_404(Course, id=id)
+
+    if request.method == "POST":
         form = CourseForm(request.POST, instance=course)
         if form.is_valid():
             form.save()
             return redirect('online_enrollment:courses')
     else:
         form = CourseForm(instance=course)
-    return render(request, 'online_enrollment/course_form.html', {'form': form, 'title': 'Edit Course'})
+
+    return render(request, 'online_enrollment/course_edit.html', {'form': form})
+
 
 @login_required
 def course_delete(request, pk):
